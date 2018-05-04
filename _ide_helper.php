@@ -14289,6 +14289,8 @@ namespace  {
     class View extends \Illuminate\Support\Facades\View {}
 
     class EasyWeChat extends \Overtrue\LaravelWeChat\Facade {}
+
+    class Alisms extends  \Mrgoon\AliSms\AliSms {}
  
 }
 

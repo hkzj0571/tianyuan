@@ -6,6 +6,7 @@ use App\Http\Resources\GoodsResource;
 use App\Models\Goods;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 
 class GoodsController extends Controller
 {

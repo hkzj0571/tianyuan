@@ -1,5 +1,26 @@
 <?php
 
+
+function setregister_code($phone)
+{
+    $key = 'register_'.$phone;
+    \Illuminate\Support\Facades\Cache::put($key,'111',5);
+
+    $aliSms =  new \Mrgoon\AliSms\AliSms();
+    $send = $aliSms->sendSms('13735526579', 'SMS_123795523', ['code'=> '1234']);
+    if($send){
+        return true;
+    }
+    return false;
+}
+
+function getregister_code($phone)
+{
+    $key = 'register_'.$phone;
+    $code = \Illuminate\Support\Facades\Cache::get($key);
+    return $code;
+}
+
 /**
  * 自定义 Ajax 返回格式
  *

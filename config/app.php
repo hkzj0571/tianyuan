@@ -169,6 +169,8 @@ return [
          */
 	    Seaony\WangEditor\WangEditorProvider::class,
 
+        Mrgoon\AliSms\ServiceProvider::class,
+
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         /*
          * Application Service Providers...
