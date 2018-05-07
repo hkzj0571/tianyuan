@@ -17,19 +17,19 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-//        try {
-//            $needs = $this->validator('api.login');
-//        } catch (ValidatorException $exception) {
-//            return errord($exception->getMessage());
-//        }
-//
-//        try {
-//            $infos = $this->validator('api.user_info', $needs['data']);
-//        } catch (ValidatorException $exception) {
-//            return errord($exception->getMessage());
-//        }
+        try {
+            $needs = $this->validator('api.login');
+        } catch (ValidatorException $exception) {
+            return errord($exception->getMessage());
+        }
 
-        $needs['code'] = '0216pZV61pxGdS1ftKV61QnQV616pZVN';
+        try {
+            $infos = $this->validator('api.user_info', $needs['data']);
+        } catch (ValidatorException $exception) {
+            return errord($exception->getMessage());
+        }
+
+//        $needs['code'] = '021jUT5G03uKjl2J1C7G0XS66G0jUT5O';
 
         $restful = EasyWeChat::miniProgram()->auth->session($needs['code']);
 
@@ -54,7 +54,7 @@ class AuthController extends Controller
         }
 
         return geted([
-            'token' => 'bearer ' . member()->fromUser($member),
+            'token' => 'bearer' . member()->fromUser($member),
             'member' => $member->toResource(),
         ]);
     }

@@ -20,6 +20,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
         \Spatie\Pjax\Middleware\FilterIfPjax::class,
+
     ];
 
     /**
@@ -59,5 +60,6 @@ class Kernel extends HttpKernel
         'guest'          => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle'       => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'authentication' => \App\Http\Middleware\Authentication::class,
+        'jwt_auth' => \App\Http\Middleware\Jwtauth::class,
     ];
 }

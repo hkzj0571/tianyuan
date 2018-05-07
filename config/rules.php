@@ -180,5 +180,9 @@ return [
             'avatarUrl' => 'nullable|string',
             'nickName' => 'nullable|string',
         ],
+        'order' => [
+            'goods_id' => 'required|numeric|exists:goods,id',
+        ],
+
     ],
 ];

@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 
 class IndexController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         return view('admin.index.index');
     }

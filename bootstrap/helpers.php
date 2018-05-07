@@ -1,19 +1,33 @@
 <?php
 
-
+/**
+ * @param $phone
+ * @return bool
+ */
 function setregister_code($phone)
 {
+    $code = '';
+    $charset = '1234567890';
+    $_len = strlen($charset) - 1;
+    for ($i = 0;$i < 4;++$i) {
+        $code .= $charset[mt_rand(0, $_len)];
+    }
     $key = 'register_'.$phone;
-    \Illuminate\Support\Facades\Cache::put($key,'111',5);
+    \Illuminate\Support\Facades\Cache::put($key,$code,5);
+
 
     $aliSms =  new \Mrgoon\AliSms\AliSms();
-    $send = $aliSms->sendSms('13735526579', 'SMS_123795523', ['code'=> '1234']);
+    $send = $aliSms->sendSms($phone, 'SMS_123795523', ['code'=> $code]);
     if($send){
         return true;
     }
     return false;
 }
 
+/**
+ * @param $phone
+ * @return mixed
+ */
 function getregister_code($phone)
 {
     $key = 'register_'.$phone;

@@ -28,6 +28,29 @@ Route::get('banner','BannerController@index');
 // 获取产品
 Route::get('goods','GoodsController@index');
 
+
+
+
+
+Route::group([
+    'middleware' => 'jwt_auth',
+], function () {
+
+    // 获取当前登录的用户信息
+    Route::get('members/info', 'MembersController@info');
+
+    //发送短信验证码
+    Route::any('members/bound_phone','MembersController@bound_phone');
+
+    //check短信验证码&更改用户状态
+    Route::any('members/check_phone','MembersController@check_phone');
+
+    //生成订单
+    Route::any('orders/store','OrdersController@store');
+
+});
+
+
 Route::fallback(function () {
     return response()->json(['message' => 'The route no\'t define'], 404);
 });
