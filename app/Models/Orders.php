@@ -11,6 +11,7 @@ class Orders extends Model
     use Helpers;
 
     protected $table = 'Orders';
+    
     protected $resource = OrdersResource::class;
 
     protected $guarded = [];
