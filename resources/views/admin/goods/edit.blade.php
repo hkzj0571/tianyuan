@@ -12,6 +12,12 @@
                     <label>产品标题</label>
                     <input type="text" name="title" value="{{ $goods->title }}" class="form-control" required>
                 </div>
+
+                <div class="form-group ban">
+                    <label>地点</label>
+                    <input type="text" name="address" value="{{ $goods->address }}" class="form-control" required>
+                </div>
+
                 <div class="form-group ban">
                     <label>产品封面</label>
                     <img src="{{ $goods->image }}" class="img-thumbnail img-preview">
@@ -25,7 +31,7 @@
                     <p class="help-block">请上传比例为 34:45 的图片</p>
                 </div>
                 <div class="form-group ban">
-                    <label>课程类型</label>
+                    <label>产品类型</label>
                     <div style="margin-top: 25px">
                         @foreach($types as $type)
                             <div class="inline-rad">
@@ -37,11 +43,11 @@
                         @endforeach
                     </div>
                 </div>
-                <div class="form-group ban">
-                    <label>产品价格</label>
-                    <input type="text" name="price" value="{{ $goods->price }}" class="form-control"
-                           required>
-                </div>
+                {{--<div class="form-group ban">--}}
+                    {{--<label>产品价格</label>--}}
+                    {{--<input type="text" name="price" value="{{ $goods->price }}" class="form-control"--}}
+                           {{--required>--}}
+                {{--</div>--}}
                 <div class="form-group ban">
                     <label>是否上架</label>
                     <div style="margin-top: 25px">

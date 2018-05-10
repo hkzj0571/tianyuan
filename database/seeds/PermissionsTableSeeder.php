@@ -33,7 +33,8 @@ class PermissionsTableSeeder extends Seeder
         'products' => '商品',
         'pages' => '页面',
         'mini_classify' => '小程序品类',
-        'members' => '用户'
+        'members' => '用户',
+        'sku' => '规格',
     ];
     /**
      *Runthedatabaseseeds.

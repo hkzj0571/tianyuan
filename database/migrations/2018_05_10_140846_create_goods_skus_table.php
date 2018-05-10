@@ -16,7 +16,7 @@ class CreateGoodsSkusTable extends Migration
         Schema::create('goods_sku', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('goods_id')->unsigned();
-            $table->foreign('goods_id')->references('id')->on('goods');
+//            $table->foreign('goods_id')->references('id')->on('goods');
             $table->string('sku_name');
             $table->decimal('price')->common('默认价格');
             $table->decimal('kid_price')->default(0)->nullable()->common('儿童价格');

@@ -22,8 +22,20 @@ return [
                 'more' => 'required|string',
                 'address' => 'required|string',
                 'price' => 'nullable|numeric',
-                'kid_price' => 'nullable|numeric',
+                'kid_price'=> 'nullable|numeric',
                 'is_shelve' => 'required|boolean',
+            ],
+        ],
+        'sku' => [
+            'store' => [
+                'sku_name' => 'required',
+                'price' => 'nullable|numeric',
+                'kid_price'=> 'nullable|numeric',
+            ],
+            'update' => [
+                'sku_name' => 'required',
+                'price' => 'nullable|numeric',
+                'kid_price'=> 'nullable|numeric',
             ],
         ],
 		'users' => [

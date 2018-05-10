@@ -16,7 +16,6 @@
                     <th>封面</th>
                     <th>标题</th>
                     <th>产品类型</th>
-                    <th>价格</th>
                     <th>是否上架</th>
                     <th>添加时间</th>
                     <th>更新时间</th>
@@ -35,9 +34,9 @@
                         </td>
                         <td>{{ $good->title }}</td>
                         <td>{{ $good->type->name }}</td>
-                        <td>
-                            <span class="label label-success">￥ {{ $good->price }}</span>
-                        </td>
+                        {{--<td>--}}
+                            {{--<span class="label label-success">￥ {{ $good->price }}</span>--}}
+                        {{--</td>--}}
                         <td>
                             @if($good->is_shelve)
                                 <span class="label label-success">是</span>
@@ -49,10 +48,10 @@
                         <td>{{ hommization($good->updated_at) }}</td>
                         <td style="width: 250px;">
                             @can('admin.goods.edit')
-                                {{--<a class="btn btn-success"--}}
-                                   {{--href="{{ route('admin.goods.edit',['goods' => $good->id]) }}">--}}
-                                    {{--<i class="fa fa-pencil-square-o"></i> 编辑--}}
-                                {{--</a>--}}
+                                <a class="btn btn-success"
+                                   href="{{ route('admin.goods.sku.index',['goods' => $good->id]) }}">
+                                    <i class="fa fa-deaf"></i> 规格
+                                </a>
                                 <a class="btn btn-success" href="{{ route('admin.goods.edit',['goods' => $good->id]) }}">
                                     <i class="fa fa-pencil-square-o"></i> 编辑
                                 </a>

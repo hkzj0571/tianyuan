@@ -57,6 +57,16 @@ Route::name('admin.')->group(function() {
             $router->resource('banner', 'BannerController');
 
             $router->resource('members', 'MembersController');
+
+
+            // 课程目录设置
+            $router->get('goods/{good}/sku', 'Goods_skuController@index')->name('goods.sku.index');
+            $router->get('goods/{good}/sku/create', 'Goods_skuController@create')->name('goods.sku.create');
+            $router->post('goods/{good}/sku', 'Goods_skuController@store')->name('goods.sku.store');
+            $router->get('goods/{good}/sku/{sku}/edit', 'Goods_skuController@edit')->name('goods.sku.edit');
+            $router->put('goods/{good}/sku/{sku}', 'Goods_skuController@update')->name('goods.sku.update');
+            $router->delete('goods/{good}/sku/{sku}', 'Goods_skuController@destroy')->name('goods.sku.destroy');
+
         }
     );
 });

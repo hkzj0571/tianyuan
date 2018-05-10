@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Banner;
 use App\Models\Goods;
+use App\Models\Goods_sku;
 use App\Models\Mini_classify;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -29,7 +31,26 @@ class GoodsController extends Controller
         } catch (ValidatorException $exception) {
             return failed($exception->getMessage());
         }
-        Goods::create($needs);
+        $goods = [
+            'title' => $needs['title'],
+            'mini_classify_id' => $needs['mini_classify_id'],
+            'address' => $needs['address'],
+            'image' => $needs['image'],
+            'intro' => $needs['intro'],
+            'more' => $needs['more'],
+            'is_shelve' => $needs['is_shelve'],
+        ];
+        $res = Goods::create($goods);
+
+        $sku = [
+          'goods_id' => $res->id,
+            'sku_name' => '默认套餐',
+            'price' => $needs['price'],
+            'kid_price' => $needs['kid_price']
+        ];
+        Goods_sku::create($sku);
+
+
         return succeed('添加产品成功。');
     }
 
@@ -54,6 +75,12 @@ class GoodsController extends Controller
 
     public function destroy(Goods $good)
     {
+//        $res = Goods_sku::where('goods_id',$good->id)->first();
+//        if ($res!=null)
+//        {
+            Goods_sku::where('goods_id',$good->id)->delete();
+        Banner::where('goods_id',$good->id)->delete();
+//        }
         $good->delete();
         return succeed('删除产品成功。');
     }
