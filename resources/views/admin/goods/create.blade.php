@@ -12,6 +12,12 @@
                     <label>标题</label>
                     <input type="text" name="title" class="form-control" required>
                 </div>
+
+                <div class="form-group ban">
+                    <label>地点</label>
+                    <input type="text" name="address" class="form-control" required>
+                </div>
+
                 <div class="form-group ban">
                     <label>产品封面</label>
                     <img src="" style="display: none" class="img-thumbnail img-preview">
@@ -39,8 +45,29 @@
                     </div>
                 </div>
                 <div class="form-group ban">
-                    <label>产品价格</label>
+                    <label>产品默认价格</label>
                     <input type="text" name="price" class="form-control" required>
+                </div>
+
+                <div class="form-group ban">
+                    <label>是否包含儿童价格</label>
+                    <div style="margin-top: 25px">
+                        <div class="inline-rad">
+                            <label>
+                                <input type="radio" name="is_group" value="1" checked> 是
+                            </label>
+                        </div>
+                        <div class="inline-rad">
+                            <label>
+                                <input type="radio" name="is_group" value="0"> 否
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group ban group_price">
+                    <label>儿童价格</label>
+                    <input type="text" name="kid_price" class="form-control">
+                    <p class="help-block">只能输入数字，保留小数点后两位</p>
                 </div>
 
                 <div class="form-group ban">
@@ -63,7 +90,7 @@
                     <textarea name="intro" class="form-control" rows="3" required></textarea>
                 </div>
                 <div class="form-group">
-                    <label>课程详情</label>
+                    <label>产品详情</label>
                     <div class="editor" spellcheck="false"></div>
                     <textarea id="PickEditor" style="display: none;" name="more" class="editor-body"></textarea>
                 </div>
@@ -91,5 +118,12 @@
         //         $('.group_price').hide()
         //     }
         // })
+        $('.inline-rad input[name=is_group]').on('click', function () {
+            if (parseInt($(this).val()) == 1) {
+                $('.group_price').show()
+            } else {
+                $('.group_price').hide()
+            }
+        })
     </script>
 @stop

@@ -1,7 +1,11 @@
 @extends('admin.layouts.basic')
 
 @section('title','Admin')
-
+<style>
+    .box-body {
+        overflow-x: scroll;
+    }
+</style>
 @section('body')
     <div class="wrapper">
         <header class="main-header">

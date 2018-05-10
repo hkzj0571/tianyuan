@@ -32,7 +32,7 @@ class AuthController extends Controller
 //        $needs['code'] = '021jUT5G03uKjl2J1C7G0XS66G0jUT5O';
 
         $restful = EasyWeChat::miniProgram()->auth->session($needs['code']);
-        
+
         if (isset($restful['errcode'])) {
             return errord('拉取用户信息失败，Js Code 参数错误');
         }

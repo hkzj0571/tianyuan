@@ -11,7 +11,7 @@ class GoodsController extends Controller
 {
     public function index()
     {
-        $goods = Goods::paginate();
+        $goods = Goods::paginate(10);
         return view('admin.goods.index',compact('goods'));
     }
 

@@ -18,10 +18,12 @@ class CreateGoodsTable extends Migration
             $table->string('title');
             $table->integer('mini_classify_id')->unsigned();;
             $table->foreign('mini_classify_id')->references('id')->on('mini_classify');
+            $table->string('address');
             $table->string('image');
             $table->string('intro');
             $table->text('more');
-            $table->decimal('price')->common('原价');
+//            $table->decimal('price')->common('默认价格');
+//            $table->decimal('kid_price')->default(0)->nullable()->common('儿童价格');
             $table->boolean('is_shelve')->default(false)->common('是否上架');
             $table->timestamps();
         });
