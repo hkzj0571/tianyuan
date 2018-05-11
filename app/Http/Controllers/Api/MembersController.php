@@ -40,6 +40,10 @@ class MembersController extends Controller
      */
     public function check_phone(Request $request)
     {
+        if(member()->user()->bind_mobile == true)
+        {
+            return errord('该用户已绑定手机号码');
+        }
         $check_code = getregister_code($request->phone);
         if ($check_code != $request->code)
         {
