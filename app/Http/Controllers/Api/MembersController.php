@@ -45,6 +45,7 @@ class MembersController extends Controller
         {
             return bake([], '当前用户验证码不正确', '401');
         }
+
         $user = Members::where('openid',member()->user()->openid)->first();
         $user->bind_mobile = true;
         $user->mobile = $request->phone;

@@ -17,32 +17,35 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
+//        return geted($request->all());die;
         try {
             $needs = $this->validator('api.login');
         } catch (ValidatorException $exception) {
             return errord($exception->getMessage());
         }
 
+
+
         try {
             $infos = $this->validator('api.user_info', $needs['data']);
         } catch (ValidatorException $exception) {
             return errord($exception->getMessage());
         }
-
+//return geted($info);die;
 //        $needs['code'] = '021jUT5G03uKjl2J1C7G0XS66G0jUT5O';
 
         $restful = EasyWeChat::miniProgram()->auth->session($needs['code']);
-
         if (isset($restful['errcode'])) {
             return errord('拉取用户信息失败，Js Code 参数错误');
         }
+
 
         $member = Members::where('openid', $restful['openid'])->first();
 
         $data = [
             'session_key' => $restful['session_key'],
-            'avatar' => 'https://lccdn.phphub.org/uploads/avatars/19875_1510242370.jpeg',
-            'name' => '1111',
+            'avatar' => $infos['avatarUrl'],
+            'name' => $infos['nickName'],
         ];
 
         if ($member) {
@@ -53,7 +56,7 @@ class AuthController extends Controller
         }
 
         return geted([
-            'token' => 'bearer' . member()->fromUser($member),
+            'token' => 'bearer ' . member()->fromUser($member),
             'member' => $member->toResource(),
         ]);
     }
