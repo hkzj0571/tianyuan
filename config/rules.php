@@ -165,6 +165,14 @@ return [
             ],
         ],
 
+        'coupons' => [
+            'store' => [
+                'name' => 'required|string',
+                'cut_price' => 'required',
+                'explain' => 'required|string',
+            ],
+        ],
+
 		'products' => [
 
 			'store' => [
@@ -189,6 +197,7 @@ return [
         'login' => [
             'code' => 'required|string',
             'data' => 'required|array',
+            'parent_id' => 'nullable',
         ],
         'user_info' => [
             'avatarUrl' => 'nullable|string',

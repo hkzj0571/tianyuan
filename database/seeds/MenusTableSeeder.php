@@ -120,6 +120,13 @@ class MenusTableSeeder extends Seeder
                 'top_id'   => $mini->id,
             ],
             [
+                'name'     => '优惠券管理',
+                'describe' => '优惠券管理',
+                'icon'     => 'fa-cube',
+                'slug'     => 'admin.coupons.index',
+                'top_id'   => $mini->id,
+            ],
+            [
                 'name'     => '用户管理',
                 'describe' => '用户',
                 'icon'     => 'fa-cube',

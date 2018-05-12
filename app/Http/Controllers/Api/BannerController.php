@@ -12,11 +12,8 @@ class BannerController extends Controller
 {
     public function index()
     {
-//        return geted(BannerResourse::collection(
-//            Banner::orderBy('weight','desc')->get()
-//        ));
-
-
-        setregister_code(13735526579);
+        return geted(BannerResourse::collection(
+            Banner::orderBy('weight','desc')->get()
+        ));
     }
 }

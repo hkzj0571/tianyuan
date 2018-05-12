@@ -21,6 +21,7 @@ class CreateMembersTable extends Migration
             $table->string('name')->nullable()->common('昵称');
             $table->string('mobile')->nullable();
             $table->boolean('bind_mobile')->default(false);
+            $table->string('parent_id')->nullable();
             $table->timestamps();
         });
     }

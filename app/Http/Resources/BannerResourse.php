@@ -17,8 +17,9 @@ class BannerResourse extends Resource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'url' => $this->read_url,
+            'url' => $this->url,
             'weight' => $this->weight,
+            'goods_id' => $this->goods_id,
         ];
     }
 }

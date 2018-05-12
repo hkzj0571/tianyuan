@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Members;
+use App\Models\Members_coupons;
 use Illuminate\Http\Request;
 use EasyWeChat;
 use App\Http\Controllers\Controller;
@@ -23,8 +24,6 @@ class AuthController extends Controller
         } catch (ValidatorException $exception) {
             return errord($exception->getMessage());
         }
-
-
 
         try {
             $infos = $this->validator('api.user_info', $needs['data']);
@@ -52,7 +51,8 @@ class AuthController extends Controller
             $member->update($data);
         } else {
             $data['openid'] = $restful['openid'];
-            $member         = Members::create($data);
+            $data['parent_id'] = $needs['parent_id'];
+            $member = Members::create($data);
         }
 
         return geted([
