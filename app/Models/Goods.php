@@ -21,4 +21,9 @@ class Goods extends Model
         return $this->belongsTo(Mini_classify::class,'mini_classify_id');
     }
 
+    public function types()
+    {
+        return $this->hasMany(Mini_classify::class);
+    }
+
 }

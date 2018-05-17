@@ -39,4 +39,14 @@ class Members extends User implements JWTSubject
         return [];
     }
 
+    public function collect()
+    {
+        return $this->belongsToMany(Goods::class, 'collect_goods')->withTimestamps();
+    }
+
+    public function is_collect($goods_id)
+    {
+        return $this->collect()->where('goods_id', $goods_id)->exists();
+    }
+
 }

@@ -8662,6 +8662,13 @@ var Applocation = {
             $(this).parent().addClass('active').parent().parent().addClass('active')
         })
 
+        // $('.filter-bar').on('change', function () {
+        //     $('.filter-bar').each(function () {
+        //         window.location.host.updateSearchParam($(this).attr('name'), $(this).val(), false)
+        //     })
+        //     to(window.location.href)
+        // })
+
         window.failed = (message, url = null) => iziToast.error({
             timeout:1000,
             title: message,

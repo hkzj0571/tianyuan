@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Collect_goods;
 use App\Models\Members;
 use App\Models\Members_coupons;
 use Illuminate\Http\Request;
@@ -68,6 +69,45 @@ class MembersController extends Controller
         ]);
 
         return bake([], '绑定手机成功', '200');
+    }
+
+
+    /**
+     * 收藏产品
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function collect_goods(Request $request)
+    {
+        if (!$request->goods_id) {
+            return errord('缺少字段 goods_id');
+        }
+        if (Collect_goods::where('members_id', member()->user()->id)->where('goods_id', $request->goods_id)->first()) {
+            return errord('请勿重复收藏');
+        }
+        Collect_goods::create([
+            'members_id' => member()->user()->id,
+            'goods_id' => $request->goods_id,
+        ]);
+        return bake([], '收藏产品成功', '200');
+    }
+
+
+    /**
+     * 取消收藏
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function uncollect_goods(Request $request)
+    {
+        if (!$request->goods_id) {
+            return errord('缺少字段 goods_id');
+        }
+        if (!Collect_goods::where('members_id', member()->user()->id)->where('goods_id', $request->goods_id)->first()) {
+            return errord('请先收藏产品');
+        }
+        Collect_goods::where('members_id', member()->user()->id)->where('goods_id', $request->goods_id)->delete();
+        return bake([], '取消收藏成功', '200');
     }
     
 }

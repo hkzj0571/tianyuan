@@ -21,7 +21,8 @@ class GoodsResource extends Resource
             'image' => $this->image,
             'intro' => $this->intro,
             'more' => $this->more,
-            'price' => $this->price,
+//            'price' => $this->price,
+            'is_buy' => member()->check() && member()->user()->is_collect($this->id),
         ];
     }
 }

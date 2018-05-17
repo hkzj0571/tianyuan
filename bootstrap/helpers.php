@@ -147,7 +147,14 @@ function member()
     return Auth::guard('api');
 }
 
-
+function get_by(array $keys)
+{
+    $data = [];
+    foreach ($keys as $key) {
+        $data[$key] = request($key, null);
+    }
+    return $data;
+}
 /**
  * 响应辅助函数
  *

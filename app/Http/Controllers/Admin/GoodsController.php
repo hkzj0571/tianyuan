@@ -11,10 +11,12 @@ use App\Http\Controllers\Controller;
 
 class GoodsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $goods = Goods::paginate(10);
-        return view('admin.goods.index',compact('goods'));
+        $filters = get_by(['name', 'is_shelve']);
+        $goods = Goods::search('title', $filters['name'])->whor('is_shelve', $filters['is_shelve'])->paginate(10);
+//        $materials = Material::search('name', $filters['name'])->whor('type', $filters['type'])->paginate();
+        return view('admin.goods.index',compact('goods','filters'));
     }
 
     public function create(Request $request)

@@ -27,4 +27,14 @@ trait Helpers
     {
         return $this->resource ? (new $this->resource($this)) : $this->toArray();
     }
+
+    public function scopeSearch($builder,$att,$value)
+    {
+        return $value !== null ? $builder->where($att,'like',"%$value%") : $builder;
+    }
+
+    public function scopeWhor($builder,$att,$value)
+    {
+        return $value !== null ? $builder->where($att,$value) : $builder;
+    }
 }

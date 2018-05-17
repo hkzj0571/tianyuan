@@ -7,6 +7,15 @@
             @can('admin.goods.create')
                 <a class="btn btn-primary" href="{{ route('admin.goods.create') }}"><i class="fa fa-plus"></i>添加</a>
             @endcan
+            <form class="filter-bar">
+                <input type="text" class="form-control wb" name="name" placeholder="请输入素材名称" value="{{ $filters['name'] }}">
+                <select name="is_shelve" class="form-control wb">
+                    <option value="">是否上架</option>
+                    <option value='1' {{ $filters['is_shelve'] == '1' ? 'selected' : '' }}>是</option>
+                    <option value="0" {{ $filters['is_shelve'] == '0' ? 'selected' : '' }}>否</option>
+                </select>
+                <button class="btn-success" style="border-radius: 4px;"  type="submit" ><i class="fa fa-search"></i>搜索</button>
+            </form>
         </div>
         <div class="box-body">
             <table class="table table-bordered">
@@ -79,5 +88,6 @@
         //     el: '#app',
         //     data: {}
         // })
+
     </script>
 @stop

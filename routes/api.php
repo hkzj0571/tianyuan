@@ -28,9 +28,17 @@ Route::get('banner','BannerController@index');
 // 获取产品
 Route::get('goods','GoodsController@index');
 
+//获取产品分类
+Route::get('goods_type','GoodsController@goods_type');
 
+//获取分类下的产品
+Route::get('goods_types/{id}','GoodsController@type_goods');
 
+//获取产品详情
+Route::get('goods/{good}','GoodsController@show');
 
+//获取产品SKU
+Route::get('goods/sku/{id}','GoodsController@goods_sku');
 
 Route::group([
     'middleware' => 'jwt_auth',
@@ -45,8 +53,15 @@ Route::group([
     //check短信验证码&更改用户状态
     Route::any('members/check_phone','MembersController@check_phone');
 
+    //收藏产品
+    Route::any('members/collect_goods','MembersController@collect_goods');
+
+    //取消收藏产品
+    Route::any('members/uncollect_goods','MembersController@uncollect_goods');
+
     //生成订单
     Route::any('orders/store','OrdersController@store');
+
 
 });
 
