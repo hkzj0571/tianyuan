@@ -32,14 +32,16 @@ class GoodsController extends Controller
     public function goods_type()
     {
         return bake([
-            Mini_classify::all()
+            'goods' => Mini_classify::all()
         ]);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function type_goods($id)
     {
-//        $goods =  Goods::where('mini_classify_id',$id)->get();
-//        return bake([$goods->toResource()]);
         return bake([
             'goods' => GoodsResource::collection(
                 Goods::where('mini_classify_id', $id)->get()
@@ -59,10 +61,26 @@ class GoodsController extends Controller
         ]);
     }
 
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function goods_sku($id)
     {
         return bake([
             Goods_sku::where('goods_id',$id)->get()
         ]);
     }
+
+    public function search_goods(Request $request)
+    {
+        return bake([
+            'goods' => GoodsResource::collection(
+                Goods::search('title', $request->keyword)->get()
+            )
+        ]);
+    }
+
+
 }

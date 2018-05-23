@@ -28,6 +28,9 @@ Route::get('banner','BannerController@index');
 // 获取产品
 Route::get('goods','GoodsController@index');
 
+// 获取产品
+Route::any('goods_search','GoodsController@search_goods');
+
 //获取产品分类
 Route::get('goods_type','GoodsController@goods_type');
 
@@ -39,6 +42,8 @@ Route::get('goods/{good}','GoodsController@show');
 
 //获取产品SKU
 Route::get('goods/sku/{id}','GoodsController@goods_sku');
+
+Route::any('orders/test','OrdersController@getTotal');
 
 Route::group([
     'middleware' => 'jwt_auth',

@@ -196,7 +196,7 @@ return [
     'api' => [
         'login' => [
             'code' => 'required|string',
-            'data' => 'required|array',
+            'data' => 'nullable|array',
             'parent_id' => 'nullable',
         ],
         'user_info' => [
@@ -205,6 +205,7 @@ return [
         ],
         'order' => [
             'goods_id' => 'required|numeric|exists:goods,id',
+            'data' => 'nullable|array',
         ],
 
     ],

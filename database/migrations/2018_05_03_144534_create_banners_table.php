@@ -17,7 +17,7 @@ class CreateBannersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('url');
-            $table->integer('goods_id')->unsigned();;
+            $table->integer('goods_id')->unsigned();
             $table->foreign('goods_id')->references('id')->on('goods');
             $table->integer('weight');
             $table->timestamps();
