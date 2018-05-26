@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Resources\GoodsResource;
 use App\Models\Goods;
 use App\Models\Goods_sku;
+use App\Models\Keywords;
 use App\Models\Mini_classify;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -79,6 +80,13 @@ class GoodsController extends Controller
             'goods' => GoodsResource::collection(
                 Goods::search('title', $request->keyword)->get()
             )
+        ]);
+    }
+
+    public function get_keywords()
+    {
+        return bake([
+            'keywords' => Keywords::all()
         ]);
     }
 

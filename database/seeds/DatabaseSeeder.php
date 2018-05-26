@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
          $this->call(Mini_classifiesTableSeeder::class);
          $this->call(GoodsTableSeeder::class);
          $this->call(BannerTableSeeder::class);
-         $this->call(CouponsTableSeeder::class);
+//         $this->call(KeywordsTableSeeder::class);
+//         $this->call(CouponsTableSeeder::class);
     }
 }

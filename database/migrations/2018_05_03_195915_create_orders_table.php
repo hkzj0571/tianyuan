@@ -19,9 +19,11 @@ class CreateOrdersTable extends Migration
             $table->string('body');
             $table->unsignedInteger('members_id');
             $table->unsignedInteger('goods_id');
+            $table->integer('coupons_id')->default(0)->common('优惠券ID');;
             $table->decimal('price');
             $table->boolean('is_payed')->default(false);
             $table->timestamp('payed_at')->nullable();
+            $table->integer('state')->default(0)->common('状态');
             $table->timestamps();
         });
     }

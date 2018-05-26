@@ -43,7 +43,10 @@ Route::get('goods/{good}','GoodsController@show');
 //获取产品SKU
 Route::get('goods/sku/{id}','GoodsController@goods_sku');
 
-Route::any('orders/test','OrdersController@getTotal');
+Route::any('orders/test','OrdersController@test');
+
+Route::any('get_keywords','GoodsController@get_keywords');
+
 
 Route::group([
     'middleware' => 'jwt_auth',
@@ -51,6 +54,9 @@ Route::group([
 
     // 获取当前登录的用户信息
     Route::get('members/info', 'MembersController@info');
+
+    // 获取当前登录的用户可用优惠券
+    Route::any('members/get_coupons', 'MembersController@get_coupons');
 
     //发送短信验证码
     Route::any('members/bound_phone','MembersController@bound_phone');
@@ -67,6 +73,8 @@ Route::group([
     //生成订单
     Route::any('orders/store','OrdersController@store');
 
+    // 支付订单
+    Route::get('orders/{orders}/pay','OrdersController@pay');
 
 });
 

@@ -12,4 +12,9 @@ class Members_coupons extends Model
     protected $table = 'members_coupons';
 
     protected $guarded = [];
+
+    public function coupons()
+    {
+        return $this->belongsTo(Coupon::class,'coupons_id');
+    }
 }

@@ -94,6 +94,16 @@ class MembersController extends Controller
     }
 
 
+    public function get_coupons()
+    {
+        return bake(
+            [
+                'coupons' => Members_coupons::where('members_id',member()->user()->id)->where('status',false)->get()
+            ]
+        );
+    }
+
+
     /**
      * 取消收藏
      * @param Request $request

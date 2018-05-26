@@ -205,8 +205,11 @@ return [
         ],
         'order' => [
             'goods_id' => 'required|numeric|exists:goods,id',
-            'data' => 'nullable|array',
+            'data' => 'nullable',
+            'user_name' => 'required',
+            'user_phone' => 'required',
+            'play_date' => 'required',
+            'members_coupons_id' => 'required',
         ],
-
     ],
 ];

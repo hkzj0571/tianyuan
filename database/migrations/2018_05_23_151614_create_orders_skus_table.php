@@ -21,6 +21,9 @@ class CreateOrdersSkusTable extends Migration
             $table->foreign('goods_sku_id')->references('id')->on('goods_sku');
             $table->integer('adult')->nullable();
             $table->integer('kids')->nullable();
+            $table->string('user_name');
+            $table->string('user_phone');
+            $table->string('date');
         });
     }
 

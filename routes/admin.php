@@ -60,6 +60,8 @@ Route::name('admin.')->group(function() {
 
             $router->resource('coupons', 'CouponsController');
 
+            $router->resource('keywords', 'KeywordsController');
+
             // 课程目录设置
             $router->get('goods/{good}/sku', 'Goods_skuController@index')->name('goods.sku.index');
             $router->get('goods/{good}/sku/create', 'Goods_skuController@create')->name('goods.sku.create');

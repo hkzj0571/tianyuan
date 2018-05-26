@@ -127,6 +127,13 @@ class MenusTableSeeder extends Seeder
                 'top_id'   => $mini->id,
             ],
             [
+                'name'     => '搜索关键词管理',
+                'describe' => '搜索关键词管理',
+                'icon'     => 'fa-cube',
+                'slug'     => 'admin.keywords.index',
+                'top_id'   => $mini->id,
+            ],
+            [
                 'name'     => '用户管理',
                 'describe' => '用户',
                 'icon'     => 'fa-cube',

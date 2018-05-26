@@ -49,4 +49,9 @@ class Members extends User implements JWTSubject
         return $this->collect()->where('goods_id', $goods_id)->exists();
     }
 
+    public function members_coupons()
+    {
+        return $this->hasMany(Members_coupons::class);
+    }
+
 }
