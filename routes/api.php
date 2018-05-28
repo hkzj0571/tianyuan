@@ -51,6 +51,8 @@ Route::any('get_keywords','GoodsController@get_keywords');
 Route::group([
     'middleware' => 'jwt_auth',
 ], function () {
+    // 微信支付回调通知路由，谁动砍谁
+    Route::any('orders/notify','OrdersController@notify');
 
     // 获取当前登录的用户信息
     Route::get('members/info', 'MembersController@info');

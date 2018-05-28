@@ -147,8 +147,6 @@ class OrdersController extends Controller
         } else {
             return $result;
         }
-
-
     }
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Resources\Members_couponsResource;
 use App\Models\Collect_goods;
 use App\Models\Members;
 use App\Models\Members_coupons;
@@ -98,7 +99,7 @@ class MembersController extends Controller
     {
         return bake(
             [
-                'coupons' => Members_coupons::where('members_id',member()->user()->id)->where('status',false)->get()
+                'coupons' => Members_couponsResource::collection(Members_coupons::where('members_id',member()->user()->id)->where('status',false)->get())
             ]
         );
     }
