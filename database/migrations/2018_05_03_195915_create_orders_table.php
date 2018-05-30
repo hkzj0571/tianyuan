@@ -23,6 +23,7 @@ class CreateOrdersTable extends Migration
             $table->decimal('price');
             $table->boolean('is_payed')->default(false);
             $table->timestamp('payed_at')->nullable();
+            $table->string('prepay_id')->nullable();
             $table->integer('state')->default(0)->common('状态');
             $table->timestamps();
         });

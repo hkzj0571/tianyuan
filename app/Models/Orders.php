@@ -17,4 +17,8 @@ class Orders extends Model
     protected $guarded = [];
 
 
+    public function member()
+    {
+        return $this->belongsTo(Members::class,'members_id');
+    }
 }

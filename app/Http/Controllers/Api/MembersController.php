@@ -31,7 +31,7 @@ class MembersController extends Controller
     public function bound_phone(Request $request)
     {
         if (!member()->user()->bind_mobile){
-            setregister_code($request->phone);
+            (setregister_code($request->phone));
             return bake([],'短信发送成功','200');
         }
     }
@@ -44,7 +44,7 @@ class MembersController extends Controller
     public function check_phone(Request $request)
     {
         if (member()->user()->bind_mobile) {
-            return errord('该用户已绑定手机号码');
+            return bake([], '该用户已绑定手机号码', '402');
         }
         $check_code = getregister_code($request->phone);
         if ($check_code != $request->code) {

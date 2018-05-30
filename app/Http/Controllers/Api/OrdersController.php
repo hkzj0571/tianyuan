@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\GoodsBuyed;
 use App\Models\Coupon;
 use App\Models\Goods;
 use App\Models\Goods_sku;
@@ -118,23 +119,21 @@ class OrdersController extends Controller
         if ($orders->is_payed) {
             return bake([], '此订单已支付过，无需重新支付', '205');
         }
-
-
         $result = \EasyWeChat::payment()->order->unify([
             'body' => $orders->body,
             'out_trade_no' => $orders->no,
-            'total_fee' => '100',
+            'total_fee' => '1',
             'trade_type' => 'JSAPI',
             'openid' => member()->user()->openid,
         ]);
 
-
         // 如果成功生成统一下单的订单，那么进行二次签名
         if ($result['return_code'] === 'SUCCESS') {
+            $orders->update(['prepay_id' => $result['prepay_id']]);
             // 二次签名的参数必须与下面相同
             $params = [
-//                'appId'     => 'wx09b2bbf8d9781472',
-                'timeStamp' => time(),
+                'appId'     => 'wx8395b9772ab76853',
+                'timeStamp' => (string) time(),
                 'nonceStr'  => $result['nonce_str'],
                 'package'   => 'prepay_id=' . $result['prepay_id'],
                 'signType'  => 'MD5',
@@ -147,6 +146,42 @@ class OrdersController extends Controller
         } else {
             return $result;
         }
+    }
+
+
+    public function notify(Request $request)
+    {
+        $response = \EasyWeChat::payment()->handlePaidNotify(function ($message, $fail) {
+            // find order
+            $order = Orders::where('no', $message['out_trade_no'])->first();
+
+            if (! $order || $order->is_payed) { // order not exists or payed
+                return true; // message to wechat
+            }
+            if ($message['return_code'] === 'SUCCESS') {
+                // pay success
+                if (array_get($message, 'result_code') === 'SUCCESS') {
+
+                    $order->update([
+                        'is_payed' => true,
+                        'payed_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                    ]);
+
+                    // 购买课程成功，发送模板通知
+                    event(new GoodsBuyed($order));
+//                    \Log::info('订单:' . $order->id . ' 支付成功');
+                    // Pay fail
+                } elseif (array_get($message, 'result_code') === 'FAIL') {
+                    ## who care?
+                }
+            } else {
+                return $fail('error message');
+            }
+
+            return true;
+        });
+
+        $response->send(); // return $response;
     }
 
 
@@ -200,7 +235,29 @@ class OrdersController extends Controller
 
     public function test()
     {
-        return $cut = $this->check_cut_price('3');
+//        $result = \EasyWeChat::payment()->order->unify([
+//            'body' => '11111',
+//            'out_trade_no' => '11111',
+//            'total_fee' => '100',
+//            'trade_type' => 'JSAPI',
+//            'openid' => 'oPRYE5kgddL3LTH8wfP8Mq-5iGRU',
+//        ]);
+//        dd($result);
+
+        $info = [
+            'touser' => 'oPRYE5kgddL3LTH8wfP8Mq-5iGRU',
+            'template_id' => '2DZwB0Qgu_KfZ9BVPDQtZGWW3ahZN9-0svUT6t0RBnw',
+            'page' => 'index',
+            'form_id' => "wx2918274342800333e060d1004148873582",
+            'data' => [
+                'keyword1' => '11111',
+                'keyword2' => '11111',
+                'keyword3' => '11111',
+                'keyword4' => '11111',
+            ],
+        ];
+
+        dump(\EasyWeChat::miniProgram()->template_message->send($info));
     }
 
 }
