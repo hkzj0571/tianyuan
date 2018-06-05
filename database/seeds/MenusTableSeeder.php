@@ -140,6 +140,13 @@ class MenusTableSeeder extends Seeder
                 'slug'     => 'admin.members.index',
                 'top_id'   => $mini->id,
             ],
+            [
+                'name'     => '订单管理',
+                'describe' => '订单管理',
+                'icon'     => 'fa-cube',
+                'slug'     => 'admin.orders.index',
+                'top_id'   => $mini->id,
+            ],
         ];
 
         foreach ($menus as $index => $menu) {

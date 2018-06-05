@@ -21,4 +21,19 @@ class Orders extends Model
     {
         return $this->belongsTo(Members::class,'members_id');
     }
+
+    public function goods()
+    {
+        return $this->belongsTo(Goods::class,'goods_id');
+    }
+
+    public function sku()
+    {
+        return $this->hasOne(Orders_sku::class);
+    }
+
+    public function members_coupons()
+    {
+        return $this->belongsTo(Members_coupons::class,'coupons_id');
+    }
 }

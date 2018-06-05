@@ -26,4 +26,10 @@ class Goods extends Model
         return $this->hasMany(Mini_classify::class);
     }
 
+    public static function  get_money($id)
+    {
+        $sku = Goods_sku::where('goods_id',$id)->first();
+        return $sku->price;
+    }
+
 }

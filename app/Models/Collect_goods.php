@@ -12,4 +12,14 @@ class Collect_goods extends Model
     protected $table = 'collect_goods';
 
     protected $guarded = [];
+
+    public function goods()
+    {
+        return $this->belongsTo(Goods::class);
+    }
+
+    public function type()
+    {
+        
+    }
 }

@@ -58,7 +58,7 @@ class GoodsController extends Controller
     public function show(Goods $good)
     {
         return bake([
-            $good->toResource()
+            'goods' => $good->toResource()
         ]);
     }
 

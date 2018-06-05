@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Resources\GoodsResource;
 use App\Http\Resources\Members_couponsResource;
 use App\Models\Collect_goods;
+use App\Models\Goods;
 use App\Models\Members;
 use App\Models\Members_coupons;
 use Illuminate\Http\Request;
@@ -95,6 +97,9 @@ class MembersController extends Controller
     }
 
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function get_coupons()
     {
         return bake(
@@ -104,23 +109,31 @@ class MembersController extends Controller
         );
     }
 
-
     /**
-     * 取消收藏
-     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-//    public function uncollect_goods(Request $request)
-//    {
-//        if (!$request->goods_id) {
-//            return errord('缺少字段 goods_id');
-//        }
-//        if (!Collect_goods::where('members_id', member()->user()->id)->where('goods_id', $request->goods_id)->first()) {
-//            return errord('请先收藏产品');
-//        }
-//        Collect_goods::where('members_id', member()->user()->id)->where('goods_id', $request->goods_id)->delete();
-//        return bake([], '取消收藏成功', '200');
-//    }
+    public function get_collect_goods()
+    {
+        $goods = Collect_goods::where('members_id',member()->user()->id)->with('goods')->get();
+//        return bake([
+//            'collect' => $goods
+//        ]);
 
-    
+
+        foreach ($goods as $car) {
+            $good[] = $car['goods_id'];
+//            $good += Goods::where('id',$car['goods_id'])->get();
+        }
+
+        return bake([
+            'goods' => GoodsResource::collection(
+                Goods::whereIn('id', $good)->get()
+            )
+        ]);
+
+//        return bake([
+//            'goods' => $good
+//        ]);
+    }
+
 }

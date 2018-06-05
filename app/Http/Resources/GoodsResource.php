@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Goods;
 use Illuminate\Http\Resources\Json\Resource;
 
 class GoodsResource extends Resource
@@ -21,8 +22,8 @@ class GoodsResource extends Resource
             'image' => $this->image,
             'intro' => $this->intro,
             'more' => $this->more,
-//            'price' => $this->price,
-            'is_buy' => member()->check() && member()->user()->is_collect($this->id),
+            'price' => Goods::get_money($this->id),
+            'is_collect' => member()->check() && member()->user()->is_collect($this->id),
         ];
     }
 }

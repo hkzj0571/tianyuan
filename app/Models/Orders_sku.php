@@ -12,4 +12,9 @@ class Orders_sku extends Model
     protected $table = 'orders_skus';
 
     protected $guarded = [];
+
+    public function skus()
+    {
+        return $this->belongsTo(Goods_sku::class,'goods_sku_id');
+    }
 }

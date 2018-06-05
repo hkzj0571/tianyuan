@@ -72,8 +72,20 @@ Route::group([
     //取消收藏产品
     Route::any('members/uncollect_goods','MembersController@uncollect_goods');
 
+    //获取用户收藏列表
+    Route::any('members/get_collect_goods','MembersController@get_collect_goods');
+
     //生成订单
     Route::any('orders/store','OrdersController@store');
+
+    //获取用户订单
+    Route::any('orders/get_members_orders','OrdersController@get_members_orders');
+
+    //获取用户所有优惠券
+    Route::any('orders/get_members_coupons','OrdersController@get_members_coupons');
+
+    //获取订单详情
+    Route::get('orders/main/{id}','OrdersController@main');
 
     // 支付订单
     Route::get('orders/{orders}/pay','OrdersController@pay');
