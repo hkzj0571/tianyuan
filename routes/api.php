@@ -57,6 +57,9 @@ Route::group([
     // 获取当前登录的用户信息
     Route::get('members/info', 'MembersController@info');
 
+    Route::get('members/get_invite_members', 'MembersController@get_invite_members');
+
+
     // 获取当前登录的用户可用优惠券
     Route::any('members/get_coupons', 'MembersController@get_coupons');
 

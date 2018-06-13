@@ -15,7 +15,7 @@ function setregister_code($phone)
     $key = 'register_'.$phone;
     \Illuminate\Support\Facades\Cache::put($key,$code,5);
     $aliSms =  new \Mrgoon\AliSms\AliSms();
-    $send = $aliSms->sendSms($phone, 'SMS_123795523', ['code'=> $code]);
+    $send = $aliSms->sendSms($phone, 'SMS_136856426', ['code'=> $code]);
     if($send){
         return true;
     }

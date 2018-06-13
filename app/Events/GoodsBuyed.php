@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\Orders;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -19,9 +20,9 @@ class GoodsBuyed
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Orders $order)
     {
-        //
+        $this->order = $order;
     }
 
     /**

@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use function EasyWeChat\Kernel\Support\generate_sign;
+use Mrgoon\AliSms\AliSms;
 
 class OrdersController extends Controller
 {
@@ -35,6 +36,12 @@ class OrdersController extends Controller
         $goods = Goods::find($goods_id);
 
         $cut = $this->check_cut_price($members_coupons_id);
+
+        if ($this->getTotal($cars)-$cut < '0'){
+            $price = '0.01';
+        }else{
+            $price = $this->getTotal($cars)-$cut;
+        }
         // begin tran
         DB::beginTransaction();
 
@@ -44,12 +51,19 @@ class OrdersController extends Controller
             'members_id' => member()->user()->id,
             'goods_id' => $goods_id,
             'coupons_id' => $members_coupons_id,
-            'price' => $this->getTotal($cars)-$cut,
+            'price' => $price,
         ]);
         if (!$order) {
             DB::rollBack();
             return bake([], '服务器异常，请稍后再试', '203');
         }
+
+        if ($members_coupons_id != '0'){
+            $coupons = Members_coupons::find($members_coupons_id);
+            $coupons->status = 1;
+            $coupons->save();
+        }
+
 
         $order_detail_data = [
             'orders_id' => $order->id,
@@ -135,7 +149,7 @@ class OrdersController extends Controller
         $result = \EasyWeChat::payment()->order->unify([
             'body' => $orders->body,
             'out_trade_no' => $orders->no,
-            'total_fee' => '1',
+            'total_fee' => $orders->price *100,
             'trade_type' => 'JSAPI',
             'openid' => member()->user()->openid,
         ]);
@@ -184,6 +198,8 @@ class OrdersController extends Controller
                         'payed_at' => \Carbon\Carbon::now()->toDateTimeString(),
                     ]);
 
+                    $aliSms =  new \Mrgoon\AliSms\AliSms();
+                    $send = $aliSms->sendSms($order->member->mobile, 'SMS_136872117', ['code'=> $order->no]);
                     // 购买课程成功，发送模板通知
                     event(new GoodsBuyed($order));
 //                    \Log::info('订单:' . $order->id . ' 支付成功');
@@ -223,7 +239,7 @@ class OrdersController extends Controller
      */
     public function get_members_orders()
     {
-        $orderes = Orders::where('members_id',member()->user()->id)->with('goods')->get();
+        $orderes = Orders::where('members_id',member()->user()->id)->with('goods')->orderBy('id', 'DESC')->get();
 
 
         $orders = [];
@@ -292,6 +308,7 @@ class OrdersController extends Controller
         if($order->is_payed == false){
             return [
                 'id' => $order->id,
+                'state' => $order->state,
                 'image' => $order->goods->image,
                 'title' => $order->goods->title,
                 'is_payed' => $order->is_payed,
@@ -320,6 +337,7 @@ class OrdersController extends Controller
         }else{
             return [
                 'id' => $order->id,
+                'state' => $order->state,
                 'image' => $order->goods->image,
                 'title' => $order->goods->title,
                 'is_payed' => $order->is_payed,
@@ -419,9 +437,9 @@ class OrdersController extends Controller
 
         $info = [
             'touser' => 'oPRYE5kgddL3LTH8wfP8Mq-5iGRU',
-            'template_id' => '2DZwB0Qgu_KfZ9BVPDQtZGWW3ahZN9-0svUT6t0RBnw',
-            'page' => 'index',
-            'form_id' => "wx2918274342800333e060d1004148873582",
+            'template_id' => 'nJxJ4bHoASXM8-i5eRUd9frE_1nJup0yDbMoucuxii8',
+            'page' => '/pages/markorder/markorder?oid=1',
+            'form_id' => "wx081558462062007b83516e561138011568",
             'data' => [
                 'keyword1' => '11111',
                 'keyword2' => '11111',

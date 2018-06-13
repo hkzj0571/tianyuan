@@ -22,6 +22,7 @@ class OrdersResource extends Resource
             'body' => (string) $this->body,
             'price' => (float) $this->price,
             'payed_at' => (string) $this->payed_at,
+            'state' => $this->state,
         ];
     }
 }

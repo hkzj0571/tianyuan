@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Resources\GoodsResource;
 use App\Http\Resources\Members_couponsResource;
+use App\Http\Resources\MembersResource;
 use App\Models\Collect_goods;
 use App\Models\Goods;
 use App\Models\Members;
@@ -135,5 +136,16 @@ class MembersController extends Controller
 //            'goods' => $good
 //        ]);
     }
+
+    public function get_invite_members()
+    {
+        $member = Members::where('parent_id',member()->user()->id)->where('bind_mobile',true)->get();
+
+        return bake([
+            'members' => MembersResource::collection($member)
+        ]);
+    }
+
+
 
 }

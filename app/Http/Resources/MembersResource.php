@@ -20,6 +20,7 @@ class MembersResource extends Resource
             'name' => $this->name,
             'mobile' => $this->mobile,
             'bind_mobile' => $this->bind_mobile,
+            'created_at' => $this->created_at->date,
         ];
     }
 }

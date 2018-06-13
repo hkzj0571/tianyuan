@@ -8651,6 +8651,83 @@ var Applocation = {
             })
         })
 
+
+        $('.confirm_order').on('click', function (event) {
+            event.preventDefault()
+            var url = $(this).attr('href')
+            iziToast.question({
+                timeout: 10000,
+                close: false,
+                overlay: true,
+                toastOnce: true,
+                backgroundColor: '#3c8dbc',
+                theme: 'dark',
+                progressBarColor: '#fff',
+                id: 'Notice_Delete',
+                zindex: 999,
+                title: '警告',
+                message: '确定已成功派单?',
+                position: 'center',
+                buttons: [
+                    ['<button><b>确定</b></button>', function (instance, toast) {
+                        instance.hide(toast, {transitionOut: 'fadeOut'}, 'button')
+                        $.ajax({
+                            type: 'POST',
+                            url: url,
+                            data: {_method: 'get'},
+                            success: respond => {
+                                return respond.status
+                                    ? succeed(respond.message,url = 'https://hkzj0571.top/admin/orders')
+                                    : failed(respond.message)
+                            }
+                        })
+                    }],
+                    ['<button>取消</button>', function (instance, toast) {
+                        instance.hide(toast, {transitionOut: 'fadeOut'}, 'button')
+                    }]
+                ]
+            })
+        })
+
+        $('.finish_order').on('click', function (event) {
+            event.preventDefault()
+            var url = $(this).attr('href')
+            iziToast.question({
+                timeout: 10000,
+                close: false,
+                overlay: true,
+                toastOnce: true,
+                backgroundColor: '#3c8dbc',
+                theme: 'dark',
+                progressBarColor: '#fff',
+                id: 'Notice_Delete',
+                zindex: 999,
+                title: '警告',
+                message: '确定订单已完成?',
+                position: 'center',
+                buttons: [
+                    ['<button><b>确定</b></button>', function (instance, toast) {
+                        instance.hide(toast, {transitionOut: 'fadeOut'}, 'button')
+                        $.ajax({
+                            type: 'POST',
+                            url: url,
+                            data: {_method: 'put'},
+                            success: respond => {
+                                return respond.status
+                                    ? succeed(respond.message,url = 'https://hkzj0571.top/admin/orders')
+                                    : failed(respond.message)
+                            }
+                        })
+                    }],
+                    ['<button>取消</button>', function (instance, toast) {
+                        instance.hide(toast, {transitionOut: 'fadeOut'}, 'button')
+                    }]
+                ]
+            })
+        })
+
+
+
         $('.loon').each(function () {
             if ($(this).attr('href') == window.location.href) {
                 $(this).parent().addClass('active').parent().parent().addClass('active')

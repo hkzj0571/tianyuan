@@ -30,7 +30,7 @@ class SendTemplateInform
 
         $order = $event->order;
 
-        $page = 'index';
+        $page = 'pages/markorder/markorder?oid='.$order->id;
 
         $info = [
             'touser' => $order->member->openid,
