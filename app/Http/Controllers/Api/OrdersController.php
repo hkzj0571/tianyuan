@@ -435,20 +435,29 @@ class OrdersController extends Controller
 //        ]);
 //        dd($result);
 
-        $info = [
-            'touser' => 'oPRYE5kgddL3LTH8wfP8Mq-5iGRU',
-            'template_id' => 'nJxJ4bHoASXM8-i5eRUd9frE_1nJup0yDbMoucuxii8',
-            'page' => '/pages/markorder/markorder?oid=1',
-            'form_id' => "wx081558462062007b83516e561138011568",
-            'data' => [
-                'keyword1' => '11111',
-                'keyword2' => '11111',
-                'keyword3' => '11111',
-                'keyword4' => '11111',
-            ],
-        ];
+//        $info = [
+//            'touser' => 'oPRYE5kgddL3LTH8wfP8Mq-5iGRU',
+//            'template_id' => 'nJxJ4bHoASXM8-i5eRUd9frE_1nJup0yDbMoucuxii8',
+//            'page' => '/pages/markorder/markorder?oid=1',
+//            'form_id' => "wx081558462062007b83516e561138011568",
+//            'data' => [
+//                'keyword1' => '11111',
+//                'keyword2' => '11111',
+//                'keyword3' => '11111',
+//                'keyword4' => '11111',
+//            ],
+//        ];
+//
+//        dump(\EasyWeChat::miniProgram()->template_message->send($info));
 
-        dump(\EasyWeChat::miniProgram()->template_message->send($info));
+        $res = \EasyWeChat::miniProgram()->app_code->get('path/to/page');
+        $filename = $res->save('public/image','code.png');
+
+//        $disk = \Storage::disk('qiniu');
+//
+//        $filename = $disk->put(str_random(10), $res);
+
+        return succeed($filename);
     }
 
 }

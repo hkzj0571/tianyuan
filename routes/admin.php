@@ -57,6 +57,7 @@ Route::name('admin.')->group(function() {
             $router->resource('banner', 'BannerController');
 
             $router->resource('members', 'MembersController');
+            $router->get('members/{member}/orders', 'Members_ordersController@index')->name('members.orders.index');
 
             $router->resource('coupons', 'CouponsController');
 
