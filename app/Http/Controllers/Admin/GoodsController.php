@@ -15,7 +15,6 @@ class GoodsController extends Controller
     {
         $filters = get_by(['name', 'is_shelve']);
         $goods = Goods::search('title', $filters['name'])->whor('is_shelve', $filters['is_shelve'])->paginate(10);
-//        $materials = Material::search('name', $filters['name'])->whor('type', $filters['type'])->paginate();
         return view('admin.goods.index',compact('goods','filters'));
     }
 
@@ -27,7 +26,6 @@ class GoodsController extends Controller
 
     public function store(Request $request)
     {
-//        return response($request->all());
         try {
             $needs = $this->validator('admin.goods.store');
         } catch (ValidatorException $exception) {
@@ -51,7 +49,6 @@ class GoodsController extends Controller
             'kid_price' => $needs['kid_price']
         ];
         Goods_sku::create($sku);
-
 
         return succeed('添加产品成功。');
     }
@@ -77,12 +74,8 @@ class GoodsController extends Controller
 
     public function destroy(Goods $good)
     {
-//        $res = Goods_sku::where('goods_id',$good->id)->first();
-//        if ($res!=null)
-//        {
-            Goods_sku::where('goods_id',$good->id)->delete();
+        Goods_sku::where('goods_id',$good->id)->delete();
         Banner::where('goods_id',$good->id)->delete();
-//        }
         $good->delete();
         return succeed('删除产品成功。');
     }

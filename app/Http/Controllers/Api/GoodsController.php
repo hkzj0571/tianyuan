@@ -38,6 +38,7 @@ class GoodsController extends Controller
     }
 
     /**
+     * 获得分类下产品
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
@@ -64,6 +65,7 @@ class GoodsController extends Controller
 
 
     /**
+     * 获得商品sku
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
@@ -74,6 +76,11 @@ class GoodsController extends Controller
         ]);
     }
 
+    /**
+     * 搜索产品
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function search_goods(Request $request)
     {
         return bake([
@@ -83,6 +90,10 @@ class GoodsController extends Controller
         ]);
     }
 
+    /**
+     * 获取搜索关键词
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function get_keywords()
     {
         return bake([

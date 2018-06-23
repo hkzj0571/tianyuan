@@ -66,11 +66,11 @@
                                 </a>
                             @endcan
                             @can('admin.goods.destroy')
-                                <a href="{{ route('admin.goods.destroy',['goods' => $good->id]) }}"
-                                   class="btn btn-danger destroy">
-                                    <i class="fa fa-trash-o"></i>
-                                    删除
-                                </a>
+                                {{--<a href="{{ route('admin.goods.destroy',['goods' => $good->id]) }}"--}}
+                                   {{--class="btn btn-danger destroy">--}}
+                                    {{--<i class="fa fa-trash-o"></i>--}}
+                                    {{--删除--}}
+                                {{--</a>--}}
                             @endcan
                         </td>
                     </tr>
