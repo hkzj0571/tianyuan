@@ -99,6 +99,7 @@ class MembersController extends Controller
 
 
     /**
+     * 获取用户优惠券
      * @return \Illuminate\Http\JsonResponse
      */
     public function get_coupons()
@@ -111,19 +112,15 @@ class MembersController extends Controller
     }
 
     /**
+     * 获取用户收藏列表
      * @return \Illuminate\Http\JsonResponse
      */
     public function get_collect_goods()
     {
         $goods = Collect_goods::where('members_id',member()->user()->id)->with('goods')->get();
-//        return bake([
-//            'collect' => $goods
-//        ]);
-
 
         foreach ($goods as $car) {
             $good[] = $car['goods_id'];
-//            $good += Goods::where('id',$car['goods_id'])->get();
         }
 
         return bake([
@@ -132,11 +129,12 @@ class MembersController extends Controller
             )
         ]);
 
-//        return bake([
-//            'goods' => $good
-//        ]);
     }
 
+    /**
+     * 获取用户邀请成员
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function get_invite_members()
     {
         $member = Members::where('parent_id',member()->user()->id)->where('bind_mobile',true)->get();
@@ -144,6 +142,28 @@ class MembersController extends Controller
         return bake([
             'members' => MembersResource::collection($member)
         ]);
+    }
+
+
+    /**
+     * 用户信息更新
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update_members(Request $request)
+    {
+        try {
+            $needs = $this->validator('api.update_members');
+        } catch (ValidatorException $exception) {
+            return errord($exception->getMessage());
+        }
+        $member = Members::where('id', member()->user()->id)->first();
+        $data = [
+            'avatar' => isset($needs['avatarUrl']) ? $needs['avatarUrl'] : '',
+            'name' => isset($needs['nickName'])?$needs['nickName'] : '',
+        ];
+        $member->update($data);
+        return bake([], '用户信息更新成功', '200');
     }
 
 

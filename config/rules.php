@@ -199,6 +199,10 @@ return [
             'data' => 'nullable|array',
             'parent_id' => 'nullable',
         ],
+        'update_members' => [
+            'avatarUrl' => 'required|string',
+            'nickName' => 'required|string',
+        ],
         'user_info' => [
             'avatarUrl' => 'nullable|string',
             'nickName' => 'nullable|string',

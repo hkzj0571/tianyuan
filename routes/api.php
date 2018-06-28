@@ -59,6 +59,7 @@ Route::group([
 
     Route::get('members/get_invite_members', 'MembersController@get_invite_members');
 
+    Route::post('members/update_info', 'MembersController@update_members');
 
     // 获取当前登录的用户可用优惠券
     Route::any('members/get_coupons', 'MembersController@get_coupons');
