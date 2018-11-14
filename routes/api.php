@@ -24,6 +24,7 @@ Route::group(['prefix' => 'auth'], function () {
 
 // 获取轮播
 Route::get('banner','BannerController@index');
+Route::get('test','BannerController@test');
 
 // 获取产品
 Route::get('goods','GoodsController@index');
