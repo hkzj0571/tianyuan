@@ -23,5 +23,6 @@ class Controller extends BaseController
         if (!$result->fails()) return $needs;
 
         throw new ValidatorException($result->errors()->first());
+        
     }
 }
